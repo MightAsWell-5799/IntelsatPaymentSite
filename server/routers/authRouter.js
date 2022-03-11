@@ -17,9 +17,10 @@ router.get("/test", async (req, res) => {
 })
 
 router.post("/auth", async function (req, res) {
+    console.log(req.body)
 	var doc = await fireStore.userLogin(req.body.username, req.body.password)
-	if (doc == null) {
-		res.render("loginForm", {
+	if (doc == null) { 
+		res.render("loginForm", { 
 			err: "Username or password incorrect",
 		})
 	} else {
@@ -36,15 +37,15 @@ router.post("/auth", async function (req, res) {
 			maxAge: 1000 * 60 * 60 * 6,
 			httpOnly: true,
 		})
-		res.render("loggedIn", { access: 1, doc: JSON.stringify({ a: "b" }) })
+		res.redirect("/d/download")
 	}
 })
 
 
 
 function authenticateToken(req, res, next) {
-	const authHeader = req.cookies
-	const token = authHeader && authHeader.split(" ")[1]
+    const authHeader = req.cookies
+	const token = authHeader.authorizationToken
 	if (token == null) return res.sendStatus(401)
 	jwt.verify(token, auth.signing, (err, user) => {
 		if (err) return res.sendStatus(403)

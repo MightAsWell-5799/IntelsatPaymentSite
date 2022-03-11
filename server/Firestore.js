@@ -5,6 +5,7 @@ function log(message) {
 
 const { initializeApp, applicationDefault, cert } = require("firebase-admin/app")
 const { getFirestore, Timestamp, FieldValue } = require("firebase-admin/firestore")
+const { getStorage } = require("firebase-admin/storage")
 
 const crypto = require("crypto")
 const cryptoConfig = require("./configs/crypto.json")
@@ -12,8 +13,11 @@ const cryptoConfig = require("./configs/crypto.json")
 const serviceAccount = require("../auth/thinking-pillar-325220-fafa96ebec78.json")
 
 initializeApp({
-	credential: cert(serviceAccount),
+    credential: cert(serviceAccount),
+    storageBucket: "thinking-pillar-325220.appspot.com"
 })
+
+const bucket = getStorage().bucket()
 
 const db = getFirestore()
 
@@ -23,6 +27,11 @@ db.collection("Users").doc("user1").set({
 	Other: "",
 })
 
+async function getUserDataFile(username) {
+    const file = await bucket.file(username + "/data.json")
+    return file
+}
+
 async function userCreate(username, password) {
 	await db
 		.collection("Users")
@@ -30,21 +39,21 @@ async function userCreate(username, password) {
 		.get()
 		.then((doc) => {
 			if (doc.exists) {
-				return {err: "User already exists"}
-            } else {
-                if (validatePassword(password)) {
-                    db.collection("Users")
-                        .doc(username)
-                        .set({
-                            Username: username,
-                            Password: crypto.createHash(cryptoConfig.hash).update(password).digest("hex"),
-                            Other: "",
-                        })
-                    log("User created")
-                    return {err: undefined}
-                } else {
-                    return {err: "Password must be at least 10 characters long and must include at least one number and special character"}
-                }
+				return { err: "User already exists" }
+			} else {
+				if (validatePassword(password)) {
+					db.collection("Users")
+						.doc(username)
+						.set({
+							Username: username,
+							Password: crypto.createHash(cryptoConfig.hash).update(password).digest("hex"),
+							Other: "",
+						})
+					log("User created")
+					return { err: undefined }
+				} else {
+					return { err: "Password must be at least 10 characters long and must include at least one number and special character" }
+				}
 			}
 		})
 }
@@ -58,7 +67,7 @@ async function userLogin(username, password) {
 			if (!doc.exists) {
 				log("User does not exist")
 				return null
-			} else { 
+			} else {
 				if (doc.data().Password == crypto.createHash(cryptoConfig.hash).update(password).digest("hex")) {
 					return doc.data()
 				} else {
@@ -82,5 +91,7 @@ function validatePassword(password) {
 function hashPassword(password) {
 	return crypto.createHash(cryptoConfig.hash).update(password).digest("hex")
 }
+
+
 
 module.exports = { userCreate, userLogin, hashPassword }
