@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Login</title>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+			integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+			crossorigin="anonymous"
+		/>
+	</head>
+	<body>
+		<!--basic login form-->
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 mx-auto">
+					<div class="card">
+						<div class="card-header">
+							<h3>Login</h3>
+							<h3 class="alert-danger text-danger"><%= err%></h3>
+						</div>
+
+						<div class="card-body">
+							<form action="/a/auth" method="POST" , onsubmit="">
+								<div class="form-group">
+									<label for="username">Username</label>
+									<input type="text" name="username" class="form-control" id="username" placeholder="Enter username" />
+								</div>
+								<div class="form-group">
+									<label for="password">Password</label>
+									<input type="password" name="password" class="form-control" id="password" placeholder="Enter password" />
+								</div>
+								<button type="submit" class="btn btn-primary">Login</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

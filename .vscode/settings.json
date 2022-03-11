@@ -1,0 +1,36 @@
+{
+	"workbench.colorCustomizations": {
+		"activityBar.activeBackground": "#f8fa62",
+		"activityBar.activeBorder": "#06b7b9",
+		"activityBar.background": "#f8fa62",
+		"activityBar.foreground": "#15202b",
+		"activityBar.inactiveForeground": "#15202b99",
+		"activityBarBadge.background": "#06b7b9",
+		"activityBarBadge.foreground": "#15202b",
+		"sash.hoverBorder": "#f8fa62",
+		"statusBar.background": "#f6f930",
+		"statusBar.foreground": "#15202b",
+		"statusBarItem.hoverBackground": "#ecef07",
+		"statusBarItem.remoteBackground": "#f6f930",
+		"statusBarItem.remoteForeground": "#15202b",
+		"tab.activeBorder": "#f8fa62"
+	},
+	"peacock.color": "#f6f930",
+	"files.exclude": {
+		"**/.git": true,
+		"**/.svn": true,
+		"**/.hg": true,
+		"**/CVS": true,
+		"**/.DS_Store": true,
+		"**/Thumbs.db": true,
+		"**/.classpath": true,
+		"**/.project": true,
+		"**/.settings": true,
+		"**/.factorypath": true,
+		"**/DiscordController": true,
+		"**/package-lock.json": true,
+		"**/package.json": true,
+		"**/node_modules": true
+	},
+	"explorerExclude.backup": null
+}
