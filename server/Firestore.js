@@ -27,7 +27,6 @@ async function getUserDataFile(username, res) {
     const file = bucket.file("PDFS/" + username.user + ".mp3").createReadStream({}).pipe(res)
     }
 
-userCreate("tester", "usernameIs1$")
 
 async function userCreate(username, password) {
 	await db
