@@ -9,7 +9,7 @@ const { getFirestore, Timestamp, FieldValue } = require("firebase-admin/firestor
 const crypto = require("crypto")
 const cryptoConfig = require("./configs/crypto.json")
 
-const serviceAccount = require("./auth/thinking-pillar-325220-fafa96ebec78.json")
+const serviceAccount = require("../auth/thinking-pillar-325220-fafa96ebec78.json")
 
 initializeApp({
 	credential: cert(serviceAccount),
