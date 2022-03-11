@@ -27,7 +27,6 @@ app.delete("/logout", (req, res) => {
 app.post("/login", (req, res) => {
 	// Authenticate User
     const username = req.body.username
-    const password = req.body.password
 	const user = {user: username}
 
 	const accessToken = generateAccessToken(user)
