@@ -13,24 +13,21 @@ const cryptoConfig = require("./configs/crypto.json")
 const serviceAccount = require("../auth/thinking-pillar-325220-fafa96ebec78.json")
 
 initializeApp({
-    credential: cert(serviceAccount),
-    storageBucket: "thinking-pillar-325220.appspot.com"
+	credential: cert(serviceAccount),
+	storageBucket: "thinking-pillar-325220.appspot.com",
 })
 
 const bucket = getStorage().bucket()
 
 const db = getFirestore()
 
-db.collection("Users").doc("user1").set({
-	Username: "user1",
-	Password: "password1",
-	Other: "",
-})
 
-async function getUserDataFile(username) {
-    const file = await bucket.file(username + "/data.json")
-    return file
-}
+async function getUserDataFile(username, res) {
+	console.log(username.user)
+    const file = bucket.file("PDFS/" + username.user + ".mp3").createReadStream({}).pipe(res)
+    }
+
+userCreate("tester", "usernameIs1$")
 
 async function userCreate(username, password) {
 	await db
@@ -92,6 +89,4 @@ function hashPassword(password) {
 	return crypto.createHash(cryptoConfig.hash).update(password).digest("hex")
 }
 
-
-
-module.exports = { userCreate, userLogin, hashPassword }
+module.exports = { userCreate, userLogin, hashPassword, getUserDataFile }

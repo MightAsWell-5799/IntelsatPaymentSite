@@ -16,7 +16,7 @@ router.get("/download", authenticateToken, (req, res) => {
     res.render("download")
 })
 router.get("/file", authenticateToken, (req, res) => {
-    res.download(__dirname + "/test.txt")
+    fireStore.getUserDataFile(req.user, res)
 })
 
 function authenticateToken(req, res, next) {

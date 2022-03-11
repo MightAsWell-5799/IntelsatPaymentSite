@@ -25,7 +25,4 @@ app.use("/d", pageRouter)
 app.use(express.json)
 app.use(express.static(__dirname + "/public"))
 
-
-
-
-const httpServer = require("http").createServer(app).listen(80)
+app.listen(5000)
