@@ -1,9 +1,9 @@
 const express = require("express")
 const router = express.Router()
 
-const fireStore = require("./Firestore")
+const fireStore = require("../Firestore")
 
-const auth = require("../auth/auth.json")
+const auth = require("../../auth/auth.json")
 const jwt = require("jsonwebtoken")
 
 const axios = require("axios").default
@@ -24,8 +24,10 @@ router.post("/auth", async function (req, res) {
 		})
 	} else {
 		var jwtData = (
-			await axios.post("http://localhost:4000/login", { username: req.body.username, password: fireStore.hashPassword(req.body.password) }, {})
-		).data
+			await axios.post("http://localhost:4000/login", { username: req.body.username }, {})
+        ).data
+        
+        //store jwt token for 6 hours
 		res.cookie("authorizationToken", jwtData.accessToken, {
 			maxAge: 1000 * 60 * 60 * 6,
 			httpOnly: true,
